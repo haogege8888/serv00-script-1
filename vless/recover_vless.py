@@ -35,7 +35,7 @@ except json.JSONDecodeError:
     exit(1)
 
 # 初始化汇总消息
-summary_message = "serv00-vless 恢复操作结果2：\n"
+summary_message = "serv00-vless 恢复操作结果1：\n"
 
 # 默认恢复命令
 default_restore_command = "cd ~/domains/$USER.serv00.net/vless && ./check_vless.sh"
@@ -51,7 +51,8 @@ for server in servers:
     print(f"连接到 {host}...")
 
     # 执行恢复命令（这里假设使用 SSH 连接和密码认证）
-    restore_command = f"sshpass -p '{password}' ssh -o StrictHostKeyChecking=no -p {port} {username}@{host} 'source ~/.profile; {cron_command}'"
+    restore_command = f"sshpass -p '{password}' ssh -o StrictHostKeyChecking=no -p {port} {username}@{host} '{cron_command}'"
+    #restore_command = f"sshpass -p '{password}' ssh -o StrictHostKeyChecking=no -p {port} {username}@{host} 'source ~/.profile; {cron_command}'"
     try:
         output = subprocess.check_output(restore_command, shell=True, stderr=subprocess.STDOUT)
         summary_message += f"\n成功恢复 {host} 上的 vless 服务：\n{output.decode('utf-8')}"
