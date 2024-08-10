@@ -102,7 +102,8 @@ check_vless_status() {
         echo "vless进程正在运行。"
     else
         echo "vless进程未运行或已停止，正在重启..."
-        pm2 restart vless
+        #pm2 restart vless
+        pm2 resurrect
         echo -e "${GREEN}vless进程已重启。${NC}"
     fi
 }
